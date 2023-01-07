@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\DB;
 class ApiController extends Controller
 {
 
+    // recibir email , passowrd 
+    // generarToken
 
     public function paquetes(Request $request)
     {
@@ -104,7 +106,8 @@ class ApiController extends Controller
             try {
                 $cliente = Cliente::where('clientetelefono', $numero)
                 ->select(
-                    DB::raw("CONCAT(clientenombre, ' ', clienteapellido , ' ' , clientecodigo) as nombre"),
+                    DB::raw("CONCAT(clientenombre, ' ', clienteapellido ) as nombre"),
+                    'clientecodigo as codigo'
 
                 )
                 ->first();
@@ -113,7 +116,7 @@ class ApiController extends Controller
                     $respuesta->put('desc_respuesta', 'No se ha encontrado el cliente');
                 else
                 {
-                    $cliente = $cliente->nombre ;
+                    // $cliente = $cliente->nombre ;
                     $respuesta->put('desc_respuesta', 'OK');
                     $respuesta->put('cliente', $cliente);
 
