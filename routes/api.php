@@ -15,3 +15,5 @@ Route::get('paquetes_cantidad', [ApiController::class, 'paquetes_cantidad']);
 Route::get('paquetes', [ApiController::class, 'paquetes']);
 Route::get('cliente', [ApiController::class, 'cliente']);
 Route::get('sucursal', [ApiController::class, 'sucursal']);
+Route::get('login', [ApiController::class, 'login']);
+Route::get('prueba', [ApiController::class, 'prueba']);

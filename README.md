@@ -16,3 +16,6 @@ DB_PASSWORD=
 php artisan key:generate
 
 php artisan serve
+
+
+http://localhost:8000/api/login?cedula=4218795&numero=+595986445706
