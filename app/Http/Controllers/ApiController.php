@@ -17,7 +17,7 @@ class ApiController extends Controller
     public function login(Request $request)
     {
         $cedula = $request->get('cedula') ?? null;
-        $numero = $request->get('numero') ?? null;
+        $numero = $request->get('celular') ?? null;
         $uniqueId = md5(uniqid());
         $respuesta = collect([
             'exito' => false,
