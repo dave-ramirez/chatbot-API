@@ -18,4 +18,4 @@ php artisan key:generate
 php artisan serve
 
 
-http://localhost:8000/api/login?cedula=4218795&numero=+595986445706
+http://localhost:8000/api/login?cedula=4218795&celular=+595986445706

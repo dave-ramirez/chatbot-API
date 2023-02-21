@@ -131,12 +131,11 @@ class ApiController extends Controller
 
 
                 $clienteToken = ClienteToken::where('token', $token)->where('fecha_expiracion', '>', Carbon::now())->first();
-
                 if(empty($clienteToken)){
                     $respuesta->put('desc_respuesta', 'El token no es valido');
                 }else{
                     $paquetes = Paquete::where('paquetes.estado', 'B')
-                    ->where('clientes.clientecodigo', $clienteToken->cliente_id)
+                   ->where('clientes.clientecodigo', $clienteToken->cliente_id)
                     ->where('estadoembarquedescripcion', 'ASUNCION')
                     ->leftjoin('embarques', 'embarques.embarquecodigo', '=', 'paquetes.embarquecodigo')
                     ->leftjoin('clientes', 'clientes.clientecodigo', '=', 'paquetes.clientecodigo')
@@ -160,6 +159,16 @@ class ApiController extends Controller
                         $respuesta->put('desc_respuesta', 'OK');
                         $respuesta->put('exito', true);
                     }
+
+                    $sumaPeso = round($paquetes->sum('peso'));
+                    $sumaPeso2 = round($paquetes->sum('peso2'));
+                    $sumaPrecio = round($paquetes->sum('precio'));
+                    $sumaPrecioGuaranies = round($paquetes->sum('precioGuaranies'));
+                    $respuesta->put('peso_total', $sumaPeso);
+                    $respuesta->put('peso2_total', $sumaPeso2);
+                    $respuesta->put('costo_total_gs', $sumaPrecioGuaranies);
+                    $respuesta->put('costo_total_usd', $sumaPrecio);
+                    $respuesta->put('cantidad_paquetes', count($paquetes));
                     $respuesta->put('paquetes', $paquetes);
                     $respuesta->put('exito', true);
                     $clienteToken->fecha_expiracion = Carbon::now()->addMinutes(3);
